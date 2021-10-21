@@ -24,3 +24,16 @@ CREATE TABLE IF NOT EXISTS recipes(
 
   FOREIGN KEY(familyId) REFERENCES families(id)
 )default charset utf8 COMMENT '';
+
+SELECT * FROM families;
+
+INSERT INTO families(
+  name,
+  members,
+  creatorId
+)
+VALUES(
+  "test",
+  3,
+  "123h"
+);
