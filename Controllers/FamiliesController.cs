@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeWorks.Auth0Provider;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Models;
@@ -49,9 +51,19 @@ namespace RecipeBook.Controllers
 
     [HttpPost]
     [Authorize]
-    public ActionResult<Family> Create([FromBody] Family data)
+    public async Task<ActionResult<Family>> Create([FromBody] Family familyData)
     {
-      
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        familyData.CreatorId = userInfo.Id;
+        Family family = _familiesService.Create(familyData);
+        return Ok(family);   
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
     }
   }
 }
