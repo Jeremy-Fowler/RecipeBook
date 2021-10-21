@@ -65,5 +65,20 @@ namespace RecipeBook.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpPut("{familyId}")]
+    public async Task<ActionResult<Family>> Update(int familyId, [FromBody] Family familyData)
+    {
+      try
+      {
+      Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+      var family = _familiesService.Update(familyId, familyData, userInfo.Id);
+        return Ok(family);
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+   
   }
 }

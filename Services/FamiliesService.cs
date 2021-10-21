@@ -33,5 +33,17 @@ namespace RecipeBook.Services
     {
       return _familiesRepository.Create(familyData);
     }
+
+    public Family Update(int familyId, Family familyData, string userId)
+    {
+      var family = GetById(familyId);
+      if(family.CreatorId != userId){
+        throw new Exception("This ain't your family");
+      }
+      family.Name = familyData.Name ?? family.Name;
+      family.Members = familyData.Members;
+      _familiesRepository.Update(familyId, familyData);
+      return family;
+    }
   }
 }

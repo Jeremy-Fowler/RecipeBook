@@ -47,5 +47,30 @@ namespace RecipeBook.Repositories
       familyData.Id = id;
       return familyData;
     }
+
+    internal void Update(int familyId, Family familyData)
+    {
+      familyData.Id = familyId;
+      string sql = @"
+      UPDATE families
+      SET
+      name = @Name
+      members = @Members
+      WHERE
+      id = @Id
+      ";
+       var rowsAffected = _db.Execute(sql, familyData);
+
+      if (rowsAffected > 1)
+      {
+        throw new System.Exception("THIS IS BADDDD");
+      }
+      if (rowsAffected == 0)
+      {
+        throw new System.Exception("THIS IS LESS, BUT ALSO BAD");
+      }
+    
+    
+    }
   }
 }
