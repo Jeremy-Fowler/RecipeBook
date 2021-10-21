@@ -54,11 +54,11 @@ namespace RecipeBook.Repositories
       string sql = @"
       UPDATE families
       SET
-      name = @Name
-      members = @Members
+        name = @Name,
+        members = @Members
       WHERE
       id = @Id
-      ";
+      ;";
        var rowsAffected = _db.Execute(sql, familyData);
 
       if (rowsAffected > 1)
