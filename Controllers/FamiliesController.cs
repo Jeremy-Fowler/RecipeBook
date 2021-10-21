@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Models;
 using RecipeBook.Services;
@@ -29,6 +30,28 @@ namespace RecipeBook.Controllers
           
           return BadRequest(e.Message);
       }
+    }
+
+    [HttpGet("{familyId}")]
+    public ActionResult<Family> GetById(int familyId)
+    {
+      try
+      {
+          var family = _familiesService.GetById(familyId);
+          return Ok(family);
+      }
+      catch (System.Exception e)
+      {
+          
+          return BadRequest(e.Message);
+      }
+    }
+
+    [HttpPost]
+    [Authorize]
+    public ActionResult<Family> Create([FromBody] Family data)
+    {
+      
     }
   }
 }
