@@ -45,8 +45,8 @@ email,
 picture
 )
 VALUES(
-  "1111112",
-"Buck",
+  "614b84552154365a197b1dba",
+"JERMS",
 "tester@test.com",
 "placehold.it/200x200"
 );
